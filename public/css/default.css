@@ -1,0 +1,26 @@
+body {
+  background-color: #000;
+  color: #fff;
+  font-family: "ヒラギノ明朝 Pro W3",  "Hiragino Mincho Pro",  "ＭＳ Ｐ明朝",  "MS PMincho",  serif;
+}
+
+h1 {
+  padding-top: 10px;
+  padding-left: 10px;
+  font-size: xx-large
+}
+
+div {
+  padding-left: 10px;
+  padding-top: 20px;
+}
+
+a:link {
+  color: #fff;
+  font-style:normal;
+  text-decoration:underline;
+}
+a:visited {
+  color: #fff;
+  text-decoration:underline;
+}
