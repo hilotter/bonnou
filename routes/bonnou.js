@@ -1,11 +1,12 @@
 var mongo = require('mongodb');
+var cache = require('memory-cache');
  
 var Server = mongo.Server,
     Db = mongo.Db,
     BSON = mongo.BSONPure;
  
 var server = new Server('localhost', 27017, {auto_reconnect: true});
-db = new Db('bonnoudb', server);
+db = new mongo.Db('bonnoudb', server, {safe:false});
  
 db.open(function(err, db) {
     if(!err) {
@@ -21,24 +22,37 @@ db.open(function(err, db) {
  
 exports.findById = function(req, res) {
     var id = req.params.id;
-    console.log('Retrieving bonnou: ' + id);
-    db.collection('bonnou', function(err, collection) {
+    var cache_result = cache.get('bonnou-' + id);
+    if (cache_result) {
+      res.jsonp(cache_result);
+    } else {
+      db.collection('bonnou', function(err, collection) {
         collection.findOne({'id':parseInt(id)}, function(err, item) {
-            if (!item) {
-                res.send({error: "not found"}, 404);
-            } else {
-                res.send(item);
-            }
+          var result = null;
+          if (!item) {
+            res.jsonp({error: "bonnou not found"}, 404);
+          } else {
+            cache.put('bonnou-' + id, item);
+            res.jsonp(item);
+          }
         });
-    });
+      });
+    }
 };
  
 exports.findAll = function(req, res) {
-    db.collection('bonnou', function(err, collection) {
-        collection.find().toArray(function(err, items) {
-            res.send(items);
-        });
-    });
+    var cache_result = cache.get('bonnou-all');
+    if (cache_result) {
+      res.jsonp(cache_result);
+    } else {
+      db.collection('bonnou', function(err, collection) {
+          collection.find().toArray(function(err, items) {
+              cache.put('bonnou-all', items);
+              console.log('not cache');
+              res.jsonp(items);
+          });
+      });
+    }
 };
  
 var populateDB = function() {

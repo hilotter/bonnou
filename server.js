@@ -16,7 +16,7 @@ app.get('/favicon.ico', function(req, res){
 app.get('/api', bonnou.findAll);
 app.get('/api/:id', bonnou.findById);
 app.get('*', function(req, res){
-    res.send({error: "not found"}, 404);
+    res.send({error: "bonnou not found"}, 404);
 });
 
 app.listen(3000);
