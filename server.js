@@ -19,5 +19,5 @@ app.get('*', function(req, res){
     res.send({error: "bonnou not found"}, 404);
 });
 
-app.listen(3000);
+app.listen(80);
 console.log('Listening on port 3000...');
