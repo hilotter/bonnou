@@ -5,11 +5,12 @@ var Server = mongo.Server,
     Db = mongo.Db,
     BSON = mongo.BSONPure;
  
-var server = new Server('localhost', 27017, {auto_reconnect: true});
-db = new mongo.Db('bonnoudb', server, {safe:false});
+var server = new Server(process.env.MONGO_HOST, process.env.MONGO_PORT, {auto_reconnect: true});
+db = new mongo.Db('bonnou', server, {safe:false});
  
-db.open(function(err, db) {
-    if(!err) {
+db.open(function(error, data) {
+    if(!error) {
+      data.authenticate(process.env.MONGO_USER, process.env.MONGO_PASS, function(err, data){
         console.log("Connected to 'bonnoudb' database");
         db.collection('bonnou', {strict:true}, function(err, collection) {
             if (err) {
@@ -17,6 +18,7 @@ db.open(function(err, db) {
                 populateDB();
             }
         });
+      });
     }
 });
  
