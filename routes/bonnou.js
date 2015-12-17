@@ -291,7 +291,9 @@ var populateDB = function() {
     }
 
     db.collection('bonnou', function(err, collection) {
-        collection.insert(bonnou, {safe:true}, function(err, result) {});
+        collection.insert(bonnou, {safe:true}, function(err, result) {
+          console.log(err, result);
+        });
     });
  
     function getBonbouInfo(params) {
