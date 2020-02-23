@@ -5,12 +5,6 @@ bonnou api
 
 [http://bonnou.info](http://bonnou.info)
 
-## node ver
-<pre>
-node -v                                                                                                                                                                                                                          (git)-[-master][~/bonnou]
-v0.10.23
-</pre>
-
 ## dependencies
 <pre>
 express: "~3.2.0"
