@@ -6,7 +6,7 @@
   "private": true,
   "dependencies": {
     "express": "^4.17.1",
-    "memory-cache": "~0.0.4",
+    "memory-cache": "~0.2.0",
     "mongodb": "^3.5.3"
   },
   "devDependencies": {},
